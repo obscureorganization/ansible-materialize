@@ -5,4 +5,5 @@
   connection: local
   become: yes
   roles:
+    - bacula-client
     - host-basics

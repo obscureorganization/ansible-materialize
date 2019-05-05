@@ -1,0 +1,18 @@
+---
+# tasks file for bacula-client
+#
+# Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+
+- name: be sure bacula-client is installed
+  yum:
+    name: bacula-client
+    state: installed
+  tags: bacula-client
+
+- name: be sure bacula-client is running and enabled
+  service:
+    name: bacula-fd
+    state: started
+    enabled: yes
+  tags: bacula-client
+
