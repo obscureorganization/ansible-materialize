@@ -1,0 +1,7 @@
+---
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+- name: Run All The Things
+  hosts: all
+  become: yes
+  roles:
+    - host-basics

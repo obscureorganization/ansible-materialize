@@ -1,5 +1,11 @@
 ---
 # tasks file for host-basics
+#
+- name: Set authorized key taken from file
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
 
 # Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
 - name: be sure ntp is installed
