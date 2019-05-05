@@ -6,4 +6,4 @@
   become: yes
   roles:
     - bacula-client
-    - host-basics
+    #- host-basics
