@@ -14,4 +14,7 @@ $DEBUG && set -x
 DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASEDIR="$DIR/.."
 
-ansible-playbook -l localhost "$BASEDIR/main.yml"
+HOST=localhost
+$DEBUG && EXTRA="-vvvv" || EXTRA=""
+$DEBUG && ansible -m debug "$HOST" -a "var=hostvars[inventory_hostname]"
+ansible-playbook -l "$HOST" "$BASEDIR/local.yml" $EXTRA $*

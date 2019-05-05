@@ -1,0 +1,26 @@
+---
+# tasks file for bacula-client
+#
+
+- name: be sure bacula-client is installed
+  yum:
+    name: bacula-client
+    state: installed
+  tags: bacula-client
+
+- name: Fix up bacula-client config
+  template:
+    src: bacula-fd.conf.j2
+    dest: /etc/bacula/bacula-fd.conf
+    owner: root
+    group: root
+    mode: 0640
+  tags: bacula-client
+
+- name: be sure bacula-client is running and enabled
+  service:
+    name: bacula-fd
+    state: restarted
+    enabled: yes
+  tags: bacula-client
+

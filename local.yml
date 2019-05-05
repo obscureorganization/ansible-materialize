@@ -1,7 +1,7 @@
 ---
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
-- name: Run All The Things
-  hosts: 127.0.0.1
+- name: Run All The Things locally
+  hosts: localhost
   connection: local
   become: yes
   roles:

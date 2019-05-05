@@ -1,0 +1,15 @@
+---
+# tasks file for bacula-client
+#
+# Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+
+#- debug: var=ansible_facts
+
+- name: Add bacula zone to firewall
+  firewalld:
+    zone: "{{ firewalld_bacula_client_zone }}"
+    source: "{{ bacula_server_cidr }}"
+    service: bacula-client
+    permanent: yes
+    immediate: yes
+    state: enabled
