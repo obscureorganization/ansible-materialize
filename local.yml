@@ -7,5 +7,6 @@
   connection: local
   become: yes
   roles:
+    - host-basics
+    - chrnie.icinga2
     - bacula-client
-    #- host-basics

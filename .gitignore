@@ -2,3 +2,4 @@
 *.bak
 *.retry
 *.tmp
+/roles/chrnie.icinga2
