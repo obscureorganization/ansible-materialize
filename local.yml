@@ -1,4 +1,6 @@
 ---
+# Inspired by:
+# https://www.tricksofthetrades.net/2017/10/02/ansible-local-playbooks/
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
 - name: Run All The Things locally
   hosts: localhost
