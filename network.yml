@@ -1,5 +1,11 @@
 ---
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+- name: Install Icinga2 agent
+  hosts: icinga2-agents
+  become: yes
+  roles:
+    - chrnie.icinga2
+
 - name: Install Bacula client
   hosts: all:!bareos-servers
   become: yes
@@ -12,8 +18,3 @@
   roles:
     - host-basics
 
-- name: Install Icinga2 agent
-  hosts: icinga2-agents
-  become: yes
-  roles:
-    - chrnie.icinga2
