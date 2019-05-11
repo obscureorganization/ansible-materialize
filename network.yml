@@ -12,3 +12,8 @@
   roles:
     - host-basics
 
+- name: Install Icinga2 agent
+  hosts: icinga2-agents
+  become: yes
+  roles:
+    - chrnie.icinga2
