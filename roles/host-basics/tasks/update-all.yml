@@ -2,10 +2,9 @@
 # tasks file for host-basics
 #
 # Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
-#
 
-- name: Configure enablemkhomedir
-  authconfig: enablemkhomedir="{{enablemkhomedir}}"
 
-- import_tasks: "packages.yml"
-- import_tasks: "update-all.yml"
+# Thanks https://stackoverflow.com/a/29997722
+- name: upgrade all packages
+  yum: name=* state=latest
+  

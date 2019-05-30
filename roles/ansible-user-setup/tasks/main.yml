@@ -1,0 +1,60 @@
+---
+# tasks file for ansible-user-setup
+#
+# Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+
+- name: create ansible user
+  user:
+    name: ansible
+    shell: /bin/bash
+    home: /var/spool/ansible
+    comment: Ansible
+    system: yes
+  tags: ansible-user-setup
+
+- name: create ansible user
+  group:
+    name: ansible
+    system: yes
+  tags: ansible-user-setup
+
+- name: ensure sudoers has support for /etc/sudoers.d
+  lineinfile:
+    path: /etc/sudoers
+    regexp: '^#includedir /etc/sudoers.d'
+    line: '#includedir /etc/sudoers.d'
+  tags: ansible-user-setup
+
+- name: copy ansible sudoers file into place
+  copy:
+    src: files/ansible-sudoers
+    dest: /etc/sudoers.d/ansible-sudoers
+    owner: root
+    group: root
+    mode: '0640'
+  tags: ansible-user-setup
+  
+- name: Set authorized key taken from file
+  authorized_key:
+    user: ansible
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+  tags: ansible-user-setup
+
+- name: Ensure policycoreutils-python is present
+  yum:
+    name: policycoreutils-python
+    state: installed
+  tags: ansible-user-setup
+
+- name: Allow sshd to read ansible .ssh directory
+  sefcontext:
+    target: '/var/spool/ansible/.ssh(/.*)?'
+    setype: ssh_home_t
+    state: present
+  tags: ansible-user-setup
+
+- name: Apply new SELinux file context to filesystem
+  command: restorecon -irv /var/spool/ansible/.ssh
+  tags: ansible-user-setup
+

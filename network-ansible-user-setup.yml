@@ -1,0 +1,8 @@
+---
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+- name: Install ansible user setup
+  hosts: ansible-user-setup
+  become: yes
+  roles:
+    - ansible-user-setup
+

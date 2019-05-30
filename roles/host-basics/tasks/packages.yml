@@ -1,0 +1,54 @@
+---
+# tasks file for host-basics
+#
+# Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+
+- name: be sure tmux is installed
+  yum:
+    name: tmux
+    state: installed
+  tags: 
+    - host-basics
+    - ntp
+
+- name: be sure vim-enhanced is installed
+  yum:
+    name: vim-enhanced
+    state: installed
+  tags: 
+    - host-basics
+    - vim-enhanced
+
+
+- name: be sure essential packages are installed
+  yum:
+    name:
+      - ipa-client
+      - ntp
+      - vim-enhanced
+      - yum-cron
+    state: installed
+  tags: 
+    - host-basics
+    - ntp
+    - vim-enhanced
+    - ipa-client
+    - yum-cron
+
+- name: be sure ntpd is running and enabled
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+  tags: 
+    - host-basics
+    - ntp
+
+- name: be sure yum-cron is running and enabled
+  service:
+    name: yum-cron
+    state: started
+    enabled: yes
+  tags: 
+    - host-basics
+    - yum-cron

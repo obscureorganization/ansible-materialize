@@ -1,20 +1,22 @@
 ---
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
+- name: Configure all servers with baseline roles
+  hosts: all
+  become: yes
+  roles:
+    - koichirok.authconfig-module
+    - ansible-user-setup
+    - host-basics
+
 - name: Install Icinga2 agent
-  hosts: icinga2-agents
+  hosts: icinga2_agents
   become: yes
   roles:
     - chrnie.icinga2
 
 - name: Install Bacula client
-  hosts: all:!bareos-servers
+  hosts: all:!bareos_servers
   become: yes
   roles:
     - bacula-client
-
-- name: Install host-basics
-  hosts: all
-  become: yes
-  roles:
-    - host-basics
 
