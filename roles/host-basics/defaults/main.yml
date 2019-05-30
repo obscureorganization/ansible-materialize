@@ -1,3 +1,5 @@
 ---
 # defaults file for host-basics
 enablemkhomedir: yes
+smtp_mail_server: mail.example.com
+root_email_alias: root@example.com

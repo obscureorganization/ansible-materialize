@@ -7,5 +7,37 @@
 - name: Configure enablemkhomedir
   authconfig: enablemkhomedir="{{enablemkhomedir}}"
 
+- name: Configure root mail alias
+  lineinfile:
+    path: /etc/aliases
+    regexp: '^(#|)root:'
+    line: 'root: {{root_email_alias}}'
+  notify: newaliases
+  when: inventory_hostname != smtp_mail_server
+  tags:
+    - host-basics
+    - email-aliases
+
+- name: Configure icinga mail alias
+  lineinfile:
+    path: /etc/aliases
+    regexp: '^(#|)icinga:'
+    line: 'icinga: root'
+  notify: newaliases
+  tags:
+    - host-basics
+    - email-aliases
+
+- name: Configure ansible mail alias
+  lineinfile:
+    path: /etc/aliases
+    regexp: '^(#|)ansible:'
+    line: 'ansible: root'
+  notify: newaliases
+  tags:
+    - host-basics
+    - email-aliases
+
+
 - import_tasks: "packages.yml"
 - import_tasks: "update-all.yml"

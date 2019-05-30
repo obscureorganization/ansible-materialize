@@ -1,2 +1,5 @@
 ---
 # handlers file for host-basics
+- name: newaliases
+  command: newaliases
+
