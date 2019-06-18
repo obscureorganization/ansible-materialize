@@ -41,3 +41,4 @@
 
 - import_tasks: "packages.yml"
 - import_tasks: "update-all.yml"
+- import_tasks: "security.yml"

@@ -1,0 +1,27 @@
+---
+# security.yml file for host-basics
+#
+# Do needed security changes
+
+# Work around CVE-2019-11477 - see https://github.com/Netflix/security-bulletins/blob/master/advisories/third-party/2019-001.md
+- name: Create sysctl.d file to avoid CVE-2019-1147
+  copy:
+    dest: /etc/sysctl.d/CVE-2019-1147.conf
+    content: 'net.ipv4.tcp_sack = 0'
+  tags:
+    - host-basics
+    - security
+    - CVE-2019-11477
+
+- name: Activate sysctl to avoid CVE-2019-1147
+  sysctl:
+    name: net.ipv4.tcp_sack
+    value: 0
+    sysctl_set: yes
+    state: present
+    file: /etc/sysctl.d/CVE-2019-1147.conf
+    reload: yes
+    tags:
+      - host-basics
+      - security
+      - CVE-2019-11477
