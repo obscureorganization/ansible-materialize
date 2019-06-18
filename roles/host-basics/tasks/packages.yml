@@ -3,36 +3,25 @@
 #
 # Borrowed partly from https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#playbooks-best-practices
 
-- name: be sure tmux is installed
-  yum:
-    name: tmux
-    state: installed
-  tags: 
-    - host-basics
-    - ntp
-
-- name: be sure vim-enhanced is installed
-  yum:
-    name: vim-enhanced
-    state: installed
-  tags: 
-    - host-basics
-    - vim-enhanced
-
-
 - name: be sure essential packages are installed
   yum:
     name:
       - ipa-client
+      - git
       - ntp
+      - pam_ssh_agent_auth
+      - tmux
       - vim-enhanced
       - yum-cron
     state: installed
   tags: 
     - host-basics
-    - ntp
-    - vim-enhanced
     - ipa-client
+    - git
+    - pam_ssh_agent_auth
+    - ntp
+    - tmux
+    - vim-enhanced
     - yum-cron
 
 - name: be sure ntpd is running and enabled
@@ -52,3 +41,14 @@
   tags: 
     - host-basics
     - yum-cron
+
+- name: Configure pam_ssh_agent_auth
+  lineinfile:    
+    path: /etc/pam.d/sudo
+    regexp: '^auth *sufficient *pam_ssh_agent_auth.so'
+    line: 'auth    sufficient     pam_ssh_agent_auth.so file=~/.ssh/authorized_keys'
+    insertafter: '#%PAM-1.0'
+  tags: 
+    - host-basics
+    - pam_ssh_agent_auth
+
