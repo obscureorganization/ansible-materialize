@@ -5,7 +5,10 @@
 #
 
 - name: Configure enablemkhomedir
-  authconfig: enablemkhomedir="{{enablemkhomedir}}"
+  command: authconfig --enablemkhomedir --update
+  tags:
+    - host-basics
+    - authconfig
 
 - name: Configure root mail alias
   lineinfile:

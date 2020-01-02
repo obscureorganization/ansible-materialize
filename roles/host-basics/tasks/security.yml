@@ -16,12 +16,11 @@
 - name: Activate sysctl to avoid CVE-2019-1147
   sysctl:
     name: net.ipv4.tcp_sack
-    value: 0
+    value: '0'
     sysctl_set: yes
     state: present
-    file: /etc/sysctl.d/CVE-2019-1147.conf
     reload: yes
-    tags:
-      - host-basics
-      - security
-      - CVE-2019-11477
+  tags:
+    - host-basics
+    - security
+    - CVE-2019-11477
