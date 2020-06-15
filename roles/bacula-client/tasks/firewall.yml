@@ -6,9 +6,18 @@
 #- debug: var=ansible_facts
 
 - name: Add bacula zone to firewall
+  tags: bacula-client
   firewalld:
     zone: "{{ firewalld_bacula_client_zone }}"
     source: "{{ bacula_server_cidr }}"
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: Add bacula service to firewall
+  tags: bacula-client
+  firewalld:
+    zone: "{{ firewalld_bacula_client_zone }}"
     service: bacula-client
     permanent: yes
     immediate: yes
