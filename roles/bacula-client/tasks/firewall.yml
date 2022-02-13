@@ -5,6 +5,26 @@
 
 #- debug: var=ansible_facts
 
+
+- name: Add firewalld
+  yum:
+    name:
+      - firewalld
+      - python-firewall
+    state: installed
+  tags: 
+    - bacula-client
+    - firewalld
+
+- name: be sure firewalld is running and enabled
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+  tags:
+    - bacula-client
+    - firewalld
+
 - name: Add bacula zone to firewall
   tags: bacula-client
   firewalld:
