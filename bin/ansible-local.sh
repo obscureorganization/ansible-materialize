@@ -18,4 +18,4 @@ HOST=localhost
 $DEBUG && EXTRA="-vvvv" || EXTRA=""
 # Thanks https://unix.stackexchange.com/a/467438
 $DEBUG && ansible -m debug "$HOST" -a "var=hostvars[inventory_hostname]"
-ansible-playbook -l "$HOST" "$BASEDIR/local.yml" $EXTRA $*
+ansible-playbook -l "$HOST" "$BASEDIR/local.yml" $EXTRA "$@"

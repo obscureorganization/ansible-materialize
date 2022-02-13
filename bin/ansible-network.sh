@@ -14,4 +14,4 @@ $DEBUG && set -x
 DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BASEDIR="$DIR/.."
 
-ansible-playbook "$BASEDIR/network.yml" $*
+ansible-playbook "$BASEDIR/network.yml" "$@"
